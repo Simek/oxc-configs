@@ -1,20 +1,20 @@
-# @simek/oxc-configs
+# oxc-configs
 
-Fetch 
+OXC toolset pre-made configs + fetch CLI.
 
 ## Prerequisites
 
 - Bun
 - GitHub CLI
 
-## Usage
+## CLI Usage
 
 Navigate to the project directory, then run:
 
 ```sh
-oxc-configs # you will be prompted with template selection
+bunx oxc-configs # you will be prompted with template selection
 # OR
-oxc-configs TEMPLATE # download files from specific template for the project in the current directory
+bunx oxc-configs TEMPLATE # download files from specific template for the project in the current directory
 ```
 
 ## Development
