@@ -5,7 +5,6 @@ OXC toolset pre-made configs + fetch CLI.
 ## Prerequisites
 
 - Bun
-- GitHub CLI
 
 ## CLI Usage
 

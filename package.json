@@ -1,7 +1,7 @@
 {
   "name": "oxc-configs",
   "description": "OXC toolset pre-made configs.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "bugs": {
     "url": "https://github.com/simek/oxc-configs/issues"
   },
