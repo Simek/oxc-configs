@@ -1,8 +1,10 @@
 #! /usr/bin/env bun
 
-import { cancel, intro, isCancel, log, outro, select, spinner } from '@clack/prompts';
+import { cancel, confirm, intro, isCancel, log, outro, select, spinner } from '@clack/prompts';
 import { $ } from 'bun';
 import { bold, green, yellow } from 'picocolors';
+
+import { detectPackageManager, hasGlobalInstallation, installDependencies } from './utils';
 
 enum Template {
   ReactTypeScript = 'react-typescript',
@@ -14,7 +16,7 @@ async function main() {
   const argv = process.argv.slice(2);
   let template: string | symbol | undefined = argv[0];
 
-  intro(yellow(`@simek/oxc-configs`));
+  intro(yellow(`oxc-configs`));
 
   if (!template) {
     template = await select({
@@ -46,6 +48,43 @@ async function main() {
     process.exit(1);
   }
 
+  const installDeps = await confirm({
+    message: 'Do you want to install or update OXC dependencies?',
+  });
+
+  if (isCancel(installDeps)) {
+    cancel('Dependencies installation process has been cancelled.');
+    process.exit(0);
+  }
+
+  if (installDeps) {
+    const pm = await detectPackageManager();
+
+    if (!(await hasGlobalInstallation(pm))) {
+      cancel(`The ${pm} lock has been detected but package manager seems to not be installed.`);
+      process.exit(1);
+    }
+
+    if ((template as Template) !== Template.JavaScript) {
+      const typeAware = await confirm({
+        message: 'Do you want to enable type aware linting?',
+      });
+
+      if (isCancel(typeAware)) {
+        cancel('OXC dependencies setup process has been cancelled.');
+        process.exit(0);
+      }
+
+      if (typeAware) {
+        await installDependencies(pm, ['oxlint', 'oxfmt', 'oxlint-tsgolint']);
+      } else {
+        await installDependencies(pm, ['oxlint', 'oxfmt']);
+      }
+    } else {
+      await installDependencies(pm, ['oxlint', 'oxfmt']);
+    }
+  }
+
   await fetchConfigsFromRepo(template, '.oxfmtrc.json');
   await fetchConfigsFromRepo(template, '.oxlintrc.json');
 
@@ -54,16 +93,12 @@ async function main() {
   outro(green('All done!'));
 }
 
-export async function fetchConfigsFromRepo(template: string, fileName: string) {
-  let replaceFile: 'yes' | 'no' | symbol = 'yes';
+async function fetchConfigsFromRepo(template: string, fileName: string) {
+  let replaceFile: boolean | symbol = true;
 
   if (await Bun.file(fileName).exists()) {
-    replaceFile = await select({
+    replaceFile = await confirm({
       message: `${bold(fileName)} already exists. Do you want to replace its content with the template?`,
-      options: [
-        { value: 'no', label: 'No' },
-        { value: 'yes', label: 'Yes' },
-      ],
     });
 
     if (isCancel(replaceFile)) {
@@ -72,8 +107,8 @@ export async function fetchConfigsFromRepo(template: string, fileName: string) {
     }
   }
 
-  if (replaceFile === 'no') {
-    log.info(`Ignoring ${bold(fileName)} config file.`);
+  if (!replaceFile) {
+    log.info(`Skipping ${bold(fileName)} config file.`);
   } else {
     const progress = spinner();
     progress.start(`Fetching ${bold(fileName)} config file...`);
@@ -85,7 +120,7 @@ export async function fetchConfigsFromRepo(template: string, fileName: string) {
     const config = await configContent.json();
     await Bun.write(fileName, JSON.stringify(config));
 
-    progress.stop(`${bold(fileName)} fetched and written`);
+    progress.stop(`${bold(fileName)} fetched and written.`);
   }
 }
 

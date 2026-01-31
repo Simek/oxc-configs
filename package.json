@@ -1,7 +1,7 @@
 {
   "name": "oxc-configs",
-  "description": "OXC toolset pre-made configs.",
-  "version": "0.0.3",
+  "description": "OXC toolset pre-made/opinioated configs + setup and fetch CLI",
+  "version": "0.0.4",
   "bugs": {
     "url": "https://github.com/simek/oxc-configs/issues"
   },
@@ -11,7 +11,8 @@
     "oxc-configs": "index.ts"
   },
   "files": [
-    "index.ts"
+    "index.ts",
+    "utils.ts"
   ],
   "type": "module",
   "module": "index.ts",
@@ -24,10 +25,10 @@
     "picocolors": "^1.1.1"
   },
   "devDependencies": {
-    "@types/bun": "^1.3.7",
+    "@types/bun": "^1.3.8",
     "oxfmt": "^0.27.0",
     "oxlint": "^1.42.0",
-    "oxlint-tsgolint": "^0.11.3",
+    "oxlint-tsgolint": "^0.11.4",
     "typescript": "^5.9.3"
   },
   "engines": {
