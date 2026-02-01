@@ -4,7 +4,13 @@ import { cancel, confirm, intro, isCancel, log, outro, select, spinner } from '@
 import { $ } from 'bun';
 import { bold, green, yellow } from 'picocolors';
 
-import { detectPackageManager, hasGlobalInstallation, installDependencies } from './utils';
+import {
+  detectPackageManager,
+  getGloballyInstalledPMs,
+  hasGlobalInstallation,
+  installDependencies,
+  type PM,
+} from './utils';
 
 enum Template {
   ReactTypeScript = 'react-typescript',
@@ -58,7 +64,33 @@ async function main() {
   }
 
   if (installDeps) {
-    const pm = await detectPackageManager();
+    let pm = await detectPackageManager();
+
+    if (!pm) {
+      const pms = await getGloballyInstalledPMs();
+      const selectedPM = await select<PM>({
+        message:
+          'Looks like current project does not have any lock file. Which package manager you want to use for the installation?',
+        options: Object.entries(pms)
+          .map(([pm, isInstalled]: [PM, boolean]) => {
+            if (isInstalled) {
+              return {
+                value: pm,
+                label: pm,
+              };
+            }
+            return undefined;
+          })
+          .filter(Boolean),
+      });
+
+      if (isCancel(selectedPM)) {
+        cancel('Installation preparation has been cancelled.');
+        process.exit(0);
+      }
+
+      pm = selectedPM;
+    }
 
     if (!(await hasGlobalInstallation(pm))) {
       cancel(`The ${pm} lock has been detected but package manager seems to not be installed.`);

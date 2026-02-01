@@ -2,14 +2,14 @@ import { cancel, log } from '@clack/prompts';
 import { $, file } from 'bun';
 import { bold } from 'picocolors';
 
-type PM = 'npm' | 'yarn' | 'pnpm' | 'bun';
+export type PM = 'npm' | 'yarn' | 'pnpm' | 'bun';
 
 export type CommandToRun = {
   exe: PM;
   args: string[];
 };
 
-export async function hasGlobalInstallation(pm: PM | null | undefined): Promise<boolean> {
+export async function hasGlobalInstallation(pm?: PM | null): Promise<boolean> {
   if (!pm) {
     return false;
   }
@@ -19,6 +19,22 @@ export async function hasGlobalInstallation(pm: PM | null | undefined): Promise<
   } catch {
     return false;
   }
+}
+
+export async function getGloballyInstalledPMs(): Promise<Record<PM, boolean>> {
+  const [hasYarn, hasPnpm, hasBun, hasNpm] = await Promise.all([
+    hasGlobalInstallation('bun'),
+    hasGlobalInstallation('yarn'),
+    hasGlobalInstallation('pnpm'),
+    hasGlobalInstallation('npm'),
+  ]);
+
+  return {
+    bun: hasBun,
+    yarn: hasYarn,
+    pnpm: hasPnpm,
+    npm: hasNpm,
+  };
 }
 
 async function getTypeofLockFile(): Promise<PM | null> {
@@ -36,8 +52,7 @@ async function getTypeofLockFile(): Promise<PM | null> {
     return 'pnpm';
   } else if (isBun || isBunBinary) {
     return 'bun';
-  }
-  if (isNpm) {
+  } else if (isNpm) {
     return 'npm';
   }
 
@@ -45,27 +60,7 @@ async function getTypeofLockFile(): Promise<PM | null> {
 }
 
 export async function detectPackageManager(): Promise<PM | null> {
-  const type = await getTypeofLockFile();
-
-  if (type) {
-    return type;
-  }
-  const [hasYarn, hasPnpm, hasBun, hasNpm] = await Promise.all([
-    hasGlobalInstallation('yarn'),
-    hasGlobalInstallation('pnpm'),
-    hasGlobalInstallation('bun'),
-    hasGlobalInstallation('npm'),
-  ]);
-  if (hasYarn) {
-    return 'yarn';
-  } else if (hasPnpm) {
-    return 'pnpm';
-  } else if (hasBun) {
-    return 'bun';
-  } else if (hasNpm) {
-    return 'npm';
-  }
-  return null;
+  return await getTypeofLockFile();
 }
 
 export function getCommandToRun(packages: string[], preferredManager: PM, version?: string): CommandToRun {
