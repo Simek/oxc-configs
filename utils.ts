@@ -89,13 +89,13 @@ export function getCommandToRun(packages: string[], preferredManager: PM, versio
   };
 }
 
-export async function installDependencies(pm: PM, deps: string[]) {
-  log.info(`Installing ${bold(deps.join(', '))} packages using ${bold(pm)}.`);
+export async function installDependencies(pm: PM, deps: string[], update = false) {
+  log.info(`${update ? 'Updating' : 'Installing'} ${bold(deps.join(', '))} packages using ${bold(pm)}.`);
   try {
     const { exe, args } = getCommandToRun(deps, pm, 'latest');
     await $`${exe} ${args}`.quiet();
   } catch (error) {
-    cancel(`OXC dependencies cannot be installed. ${error}`);
+    cancel(`OXC dependencies cannot be ${update ? 'updated' : 'installed'}. ${error}`);
     process.exit(0);
   }
 }

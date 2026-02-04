@@ -54,12 +54,19 @@ async function main() {
     process.exit(1);
   }
 
+  const packageJson = Bun.file('./package.json');
+  const packageJsonExist = await packageJson.exists();
+  const packageJsonContent = packageJsonExist ? await packageJson.json() : null;
+  const hasOxcToolsInstalled =
+    'oxlint' in packageJsonContent.devDependencies && 'oxfmt' in packageJsonContent.devDependencies;
+  const hasOxcTSGoLintInstalled = 'oxlint-tsgolint' in packageJsonContent.devDependencies;
+
   const installDeps = await confirm({
-    message: 'Do you want to install or update OXC dependencies?',
+    message: `Do you want to ${hasOxcToolsInstalled ? 'update' : 'install'} OXC dependencies?`,
   });
 
   if (isCancel(installDeps)) {
-    cancel('Dependencies installation process has been cancelled.');
+    cancel(`Dependencies ${hasOxcToolsInstalled ? 'update' : 'installation'} process has been cancelled.`);
     process.exit(0);
   }
 
@@ -97,7 +104,7 @@ async function main() {
       process.exit(1);
     }
 
-    if ((template as Template) !== Template.JavaScript) {
+    if ((template as Template) !== Template.JavaScript && !hasOxcTSGoLintInstalled) {
       const typeAware = await confirm({
         message: 'Do you want to enable type aware linting?',
       });
@@ -108,12 +115,16 @@ async function main() {
       }
 
       if (typeAware) {
-        await installDependencies(pm, ['oxlint', 'oxfmt', 'oxlint-tsgolint']);
+        await installDependencies(pm, ['oxlint', 'oxfmt', 'oxlint-tsgolint'], hasOxcToolsInstalled);
       } else {
-        await installDependencies(pm, ['oxlint', 'oxfmt']);
+        await installDependencies(pm, ['oxlint', 'oxfmt'], hasOxcToolsInstalled);
       }
     } else {
-      await installDependencies(pm, ['oxlint', 'oxfmt']);
+      await installDependencies(
+        pm,
+        hasOxcTSGoLintInstalled ? ['oxlint', 'oxfmt', 'oxlint-tsgolint'] : ['oxlint', 'oxfmt'],
+        hasOxcToolsInstalled
+      );
     }
   }
 
