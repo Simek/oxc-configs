@@ -94,8 +94,8 @@ export async function installDependencies(pm: PM, deps: string[], update = false
   try {
     const { exe, args } = getCommandToRun(deps, pm, 'latest');
     await $`${exe} ${args}`.quiet();
-  } catch (error) {
-    cancel(`OXC dependencies cannot be ${update ? 'updated' : 'installed'}. ${error}`);
+  } catch {
+    cancel(`OXC dependencies cannot be ${update ? 'updated' : 'installed'}.`);
     process.exit(0);
   }
 }
