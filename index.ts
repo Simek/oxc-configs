@@ -63,6 +63,7 @@ async function main() {
 
   const installDeps = await confirm({
     message: `Do you want to ${hasOxcToolsInstalled ? 'update' : 'install'} OXC dependencies?`,
+    vertical: true,
   });
 
   if (isCancel(installDeps)) {
@@ -107,6 +108,7 @@ async function main() {
     if ((template as Template) !== Template.JavaScript && !hasOxcTSGoLintInstalled) {
       const typeAware = await confirm({
         message: 'Do you want to enable type aware linting?',
+        vertical: true,
       });
 
       if (isCancel(typeAware)) {
@@ -142,6 +144,7 @@ async function fetchConfigsFromRepo(template: string, fileName: string) {
   if (await Bun.file(fileName).exists()) {
     replaceFile = await confirm({
       message: `${bold(fileName)} already exists. Do you want to replace its content with the template?`,
+      vertical: true,
     });
 
     if (isCancel(replaceFile)) {
