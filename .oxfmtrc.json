@@ -9,13 +9,6 @@
   "ignorePatterns": [],
   "experimentalSortPackageJson": false,
   "experimentalSortImports": {
-    "groups": [
-      ["side_effect"],
-      ["builtin", "external"],
-      ["internal"],
-      ["parent"],
-      ["sibling"],
-      ["index"]
-    ]
+    "groups": [["side_effect"], ["builtin", "external"], ["internal"], ["parent"], ["sibling"], ["index"]]
   }
 }
