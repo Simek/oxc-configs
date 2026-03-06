@@ -7,11 +7,11 @@
   "trailingComma": "es5",
   "arrowParens": "avoid",
   "ignorePatterns": [],
-  "experimentalSortPackageJson": false,
-  "experimentalTailwindcss": {
+  "sortPackageJson": false,
+  "sortTailwindcss": {
     "functions": ["tw"]
   },
-  "experimentalSortImports": {
+  "sortImports": {
     "groups": [["side_effect"], ["builtin", "external"], ["internal"], ["parent"], ["sibling"], ["index"]]
   }
 }
