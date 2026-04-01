@@ -48,6 +48,7 @@
         "ts-nocheck": true
       }
     ],
+    "typescript/consistent-indexed-object-style": ["error", "record"],
     "typescript/consistent-type-imports": ["error", { "fixStyle": "inline-type-imports" }],
     "typescript/no-confusing-non-null-assertion": "error",
     "typescript/no-extra-non-null-assertion": "error",
@@ -66,7 +67,6 @@
     "unicorn/consistent-date-clone": "error",
     "unicorn/consistent-empty-array-spread": "error",
     "unicorn/consistent-existence-index-check": "error",
-    "unicorn/consistent-indexed-object-style": ["error", "record"],
     "unicorn/error-message": "error",
     "unicorn/no-anonymous-default-export": "error",
     "unicorn/no-immediate-mutation": "error",

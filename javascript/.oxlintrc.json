@@ -4,6 +4,7 @@
   "ignorePatterns": [],
   "rules": {
     "branches-sharing-code": "error",
+    "consistent-indexed-object-style": ["error", "record"],
     "curly": "error",
     "eqeqeq": [
       "error",
@@ -64,7 +65,6 @@
     "unicorn/consistent-date-clone": "error",
     "unicorn/consistent-empty-array-spread": "error",
     "unicorn/consistent-existence-index-check": "error",
-    "unicorn/consistent-indexed-object-style": ["error", "record"],
     "unicorn/error-message": "error",
     "unicorn/no-anonymous-default-export": "error",
     "unicorn/no-immediate-mutation": "error",
