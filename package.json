@@ -1,7 +1,7 @@
 {
   "name": "oxc-configs",
   "description": "OXC toolset pre-made/opinioated configs + setup and fetch CLI",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "bugs": {
     "url": "https://github.com/simek/oxc-configs/issues"
   },
@@ -21,7 +21,7 @@
     "lint:fix": "oxlint --type-aware --fix && oxfmt"
   },
   "dependencies": {
-    "@clack/prompts": "^1.4.0",
+    "@clack/prompts": "^1.5.0",
     "picocolors": "^1.1.1"
   },
   "devDependencies": {
