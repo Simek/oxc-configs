@@ -13,6 +13,7 @@
       }
     ],
     "func-style": ["error", "declaration"],
+    "object-shorthand": "error",
     "no-unused-expressions": [
       "error",
       {
@@ -121,6 +122,7 @@
     "unicorn/no-object-as-default-parameter": "error",
     "unicorn/no-unnecessary-array-splice-count": "error",
     "unicorn/no-useless-collection-argument": "error",
+    "unicorn/no-useless-iterator-to-array": "error",
     "unicorn/numeric-separators-style": "error",
     "unicorn/prefer-array-find": "error",
     "unicorn/prefer-array-flat": "error",
