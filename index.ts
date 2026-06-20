@@ -80,7 +80,7 @@ async function main() {
         message:
           'Looks like current project does not have any lock file. Which package manager you want to use for the installation?',
         options: Object.entries(pms)
-          .map(([pm, isInstalled]: [PM, boolean]) => {
+          .map(([pm, isInstalled]) => {
             if (isInstalled) {
               return {
                 value: pm,
@@ -89,7 +89,7 @@ async function main() {
             }
             return undefined;
           })
-          .filter(Boolean),
+          .filter((option): option is { value: PM; label: PM } => option !== undefined),
       });
 
       if (isCancel(selectedPM)) {
