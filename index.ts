@@ -14,23 +14,28 @@ import {
 
 enum Template {
   ReactTypeScript = 'react-typescript',
+  ReactNativeTypeScript = 'react-native-typescript',
   TypeScript = 'typescript',
   JavaScript = 'javascript',
 }
 
 async function main() {
   const argv = process.argv.slice(2);
-  let template: string | symbol | undefined = argv[0];
+  let template = argv[0] as Template | undefined;
 
   intro(yellow(`oxc-configs`));
 
   if (!template) {
-    template = await select({
+    const selectedTemplate = await select<Template>({
       message: 'Select OXC toolset configs template to download:',
       options: [
         {
           value: Template.ReactTypeScript,
           label: 'React + TypeScript',
+        },
+        {
+          value: Template.ReactNativeTypeScript,
+          label: 'React Native + TypeScript',
         },
         {
           value: Template.TypeScript,
@@ -43,13 +48,15 @@ async function main() {
       ],
     });
 
-    if (isCancel(template)) {
+    if (isCancel(selectedTemplate)) {
       cancel('No template has been selected.');
       process.exit(0);
     }
+
+    template = selectedTemplate;
   }
 
-  if (!Object.values(Template).includes(template as Template)) {
+  if (!template || !Object.values(Template).includes(template)) {
     log.error(`Unknown template: ${bold(template)}\n`);
     process.exit(1);
   }
@@ -60,9 +67,11 @@ async function main() {
   const hasOxcToolsInstalled =
     'oxlint' in packageJsonContent.devDependencies && 'oxfmt' in packageJsonContent.devDependencies;
   const hasOxcTSGoLintInstalled = 'oxlint-tsgolint' in packageJsonContent.devDependencies;
+  const hasOxcReactDoctorPluginInstalled = 'oxlint-plugin-react-doctor' in packageJsonContent.devDependencies;
+  const includeReactDoctorPlugin = template === Template.ReactTypeScript || template === Template.ReactNativeTypeScript;
 
   const installDeps = await confirm({
-    message: `Do you want to ${hasOxcToolsInstalled ? 'update' : 'install'} OXC dependencies?`,
+    message: `Do you want to ${hasOxcToolsInstalled ? 'update' : 'install'} OXC dependencies? ${includeReactDoctorPlugin && !hasOxcReactDoctorPluginInstalled ? yellow('(Missing dependency: React Doctor Oxlint plugin)') : ''}`,
     vertical: true,
   });
 
@@ -105,7 +114,9 @@ async function main() {
       process.exit(1);
     }
 
-    if ((template as Template) !== Template.JavaScript && !hasOxcTSGoLintInstalled) {
+    let includeTypeAwareLinting = hasOxcTSGoLintInstalled;
+
+    if (template !== Template.JavaScript && !hasOxcTSGoLintInstalled) {
       const typeAware = await confirm({
         message: 'Do you want to enable type aware linting?',
         vertical: true,
@@ -116,18 +127,14 @@ async function main() {
         process.exit(0);
       }
 
-      if (typeAware) {
-        await installDependencies(pm, ['oxlint', 'oxfmt', 'oxlint-tsgolint'], hasOxcToolsInstalled);
-      } else {
-        await installDependencies(pm, ['oxlint', 'oxfmt'], hasOxcToolsInstalled);
-      }
-    } else {
-      await installDependencies(
-        pm,
-        hasOxcTSGoLintInstalled ? ['oxlint', 'oxfmt', 'oxlint-tsgolint'] : ['oxlint', 'oxfmt'],
-        hasOxcToolsInstalled
-      );
+      includeTypeAwareLinting = typeAware;
     }
+
+    await installDependencies(
+      pm,
+      buildOxcDependencies(includeReactDoctorPlugin, includeTypeAwareLinting),
+      hasOxcToolsInstalled
+    );
   }
 
   await fetchConfigsFromRepo(template, '.oxfmtrc.json');
@@ -138,7 +145,16 @@ async function main() {
   outro(green('All done!'));
 }
 
-async function fetchConfigsFromRepo(template: string, fileName: string) {
+function buildOxcDependencies(includeReactDoctorPlugin: boolean, includeTypeAwareLinting: boolean): string[] {
+  return [
+    'oxlint',
+    'oxfmt',
+    ...(includeTypeAwareLinting ? ['oxlint-tsgolint'] : []),
+    ...(includeReactDoctorPlugin ? ['oxlint-plugin-react-doctor'] : []),
+  ];
+}
+
+async function fetchConfigsFromRepo(template: Template, fileName: string) {
   let replaceFile: boolean | symbol = true;
 
   if (await Bun.file(fileName).exists()) {
