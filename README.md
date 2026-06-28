@@ -16,6 +16,13 @@ bunx oxc-configs # you will be prompted with template selection
 bunx oxc-configs TEMPLATE # download files from specific template for the project in the current directory
 ```
 
+### Available templates
+
+- React + TypeScript (`react-typescript`)
+- React Native + TypeScript (`react-native-typescript`)
+- TypeScript (`typescript`)
+- JavaScript (`javascript`)
+
 ## Development
 
 ```sh
