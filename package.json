@@ -1,7 +1,7 @@
 {
   "name": "oxc-configs",
   "description": "OXC toolset pre-made/opinioated configs + setup and fetch CLI",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "bugs": {
     "url": "https://github.com/simek/oxc-configs/issues"
   },
