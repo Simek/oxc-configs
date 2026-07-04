@@ -46,6 +46,7 @@ async function main() {
           label: 'JavaScript',
         },
       ],
+      showInstructions: false,
     });
 
     if (isCancel(selectedTemplate)) {
@@ -140,7 +141,7 @@ async function main() {
   await fetchConfigsFromRepo(template, '.oxfmtrc.json');
   await fetchConfigsFromRepo(template, '.oxlintrc.json');
 
-  await $`bunx --silent oxfmt@latest .oxfmtrc.json .oxlintrc.json`;
+  await $`bunx oxfmt@latest .oxfmtrc.json .oxlintrc.json`.quiet();
 
   outro(green('All done!'));
 }
