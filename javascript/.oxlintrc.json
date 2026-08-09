@@ -6,6 +6,7 @@
     "branches-sharing-code": "error",
     "consistent-indexed-object-style": ["error", "record"],
     "curly": "error",
+    "default-param-last": "error",
     "eqeqeq": [
       "error",
       "always",
@@ -14,6 +15,9 @@
       }
     ],
     "func-style": ["error", "declaration"],
+    "no-constant-condition": ["error", { "checkLoops": false }],
+    "no-duplicate-imports": "error",
+    "no-implicit-coercion": ["error", { "boolean": false }],
     "no-unused-expressions": [
       "error",
       {
@@ -25,16 +29,18 @@
       "error",
       {
         "vars": "all",
-        "args": "none",
         "ignoreRestSiblings": true,
         "caughtErrors": "all",
         "caughtErrorsIgnorePattern": "^_"
       }
     ],
+    "no-useless-call": "error",
     "no-useless-computed-key": "error",
     "no-useless-concat": "error",
     "no-useless-constructor": "error",
     "no-useless-return": "error",
+    "no-useless-spread": "error",
+    "no-var": "error",
     "no-void": [
       "error",
       {
@@ -42,6 +48,7 @@
       }
     ],
     "object-shorthand": "error",
+    "prefer-const": "error",
     "prefer-promise-reject-errors": "error",
     "prefer-rest-params": "error",
     "prefer-spread": "error",
@@ -68,15 +75,19 @@
     "import/no-self-import": "error",
     "promise/always-return": "error",
     "promise/no-callback-in-promise": "error",
+    "promise/no-multiple-resolved": "error",
+    "promise/no-return-wrap": "error",
     "unicorn/consistent-date-clone": "error",
     "unicorn/consistent-empty-array-spread": "error",
     "unicorn/consistent-existence-index-check": "error",
     "unicorn/error-message": "error",
     "unicorn/no-anonymous-default-export": "error",
+    "unicorn/no-array-fill-with-reference-type": "error",
     "unicorn/no-confusing-array-with": "error",
     "unicorn/no-immediate-mutation": "error",
     "unicorn/no-length-as-slice-end": "error",
     "unicorn/no-object-as-default-parameter": "error",
+    "unicorn/no-unnecessary-array-flat-depth": "error",
     "unicorn/no-unnecessary-array-splice-count": "error",
     "unicorn/no-useless-collection-argument": "error",
     "unicorn/no-useless-iterator-to-array": "error",
@@ -93,6 +104,7 @@
     "unicorn/prefer-node-protocol": "error",
     "unicorn/prefer-number-properties": "error",
     "unicorn/prefer-regexp-test": "error",
+    "unicorn/prefer-set-has": "error",
     "unicorn/prefer-single-call": "error",
     "unicorn/prefer-string-slice": "error",
     "unicorn/require-number-to-fixed-digits-argument": "error"
