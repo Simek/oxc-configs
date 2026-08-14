@@ -1,6 +1,6 @@
 # oxc-configs
 
-OXC toolset pre-made/opinioated configs + setup and fetch CLI.
+OXC toolset pre-made/opinionated configs + a setup and fetch CLI.
 
 ## Prerequisites
 
