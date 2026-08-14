@@ -27,7 +27,7 @@ async function main() {
 
   if (!template) {
     const selectedTemplate = await select<Template>({
-      message: 'Select OXC toolset configs template to download:',
+      message: 'Select an OXC toolset configs template to download:',
       options: [
         {
           value: Template.ReactTypeScript,
@@ -87,8 +87,7 @@ async function main() {
     if (!pm) {
       const pms = await getGloballyInstalledPMs();
       const selectedPM = await select<PM>({
-        message:
-          'Looks like current project does not have any lock file. Which package manager you want to use for the installation?',
+        message: 'The current project has no lockfile. Which package manager would you like to use?',
         options: Object.entries(pms)
           .map(([pm, isInstalled]) => {
             if (isInstalled) {
@@ -111,7 +110,7 @@ async function main() {
     }
 
     if (!(await hasGlobalInstallation(pm))) {
-      cancel(`The ${pm} lock has been detected but package manager seems to not be installed.`);
+      cancel(`A ${pm} lockfile was detected, but ${pm} does not appear to be installed.`);
       process.exit(1);
     }
 
@@ -119,7 +118,7 @@ async function main() {
 
     if (template !== Template.JavaScript && !hasOxcTSGoLintInstalled) {
       const typeAware = await confirm({
-        message: 'Do you want to enable type aware linting?',
+        message: 'Do you want to enable type-aware linting?',
         vertical: true,
       });
 
@@ -160,12 +159,12 @@ async function fetchConfigsFromRepo(template: Template, fileName: string) {
 
   if (await Bun.file(fileName).exists()) {
     replaceFile = await confirm({
-      message: `${bold(fileName)} already exists. Do you want to replace its content with the template?`,
+      message: `${bold(fileName)} already exists. Do you want to replace it with the template?`,
       vertical: true,
     });
 
     if (isCancel(replaceFile)) {
-      cancel('Replacement cancelled.');
+      cancel('Config file replacement has been cancelled.');
       process.exit(0);
     }
   }
