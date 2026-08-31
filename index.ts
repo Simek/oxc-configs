@@ -2,7 +2,7 @@
 
 import { cancel, confirm, intro, isCancel, log, outro, select, spinner } from '@clack/prompts';
 import { $ } from 'bun';
-import { bold, green, yellow } from 'picocolors';
+import { blue, blueBright, bold, gray, green, yellow } from 'picocolors';
 
 import {
   detectPackageManager,
@@ -19,11 +19,30 @@ enum Template {
   JavaScript = 'javascript',
 }
 
+type PluginEntry = {
+  name: string;
+  packageName: string;
+  templates: Template[];
+};
+
+const PLUGINS = [
+  {
+    name: 'React Doctor',
+    packageName: 'oxlint-plugin-react-doctor',
+    templates: [Template.ReactTypeScript, Template.ReactNativeTypeScript],
+  },
+  {
+    name: 'Golden',
+    packageName: 'oxlint-plugin-golden',
+    templates: [Template.ReactTypeScript, Template.ReactNativeTypeScript, Template.TypeScript],
+  },
+] satisfies PluginEntry[];
+
 async function main() {
   const argv = process.argv.slice(2);
   let template = argv[0] as Template | undefined;
 
-  intro(yellow(`oxc-configs`));
+  intro(bold(blueBright(`oxc-configs`)) + ' ' + gray('•') + ' ' + blue(`OXC toolset pre-made/opinionated configs`));
 
   if (!template) {
     const selectedTemplate = await select<Template>({
@@ -65,14 +84,20 @@ async function main() {
   const packageJson = Bun.file('./package.json');
   const packageJsonExist = await packageJson.exists();
   const packageJsonContent = packageJsonExist ? await packageJson.json() : null;
-  const hasOxcToolsInstalled =
-    'oxlint' in packageJsonContent.devDependencies && 'oxfmt' in packageJsonContent.devDependencies;
-  const hasOxcTSGoLintInstalled = 'oxlint-tsgolint' in packageJsonContent.devDependencies;
-  const hasOxcReactDoctorPluginInstalled = 'oxlint-plugin-react-doctor' in packageJsonContent.devDependencies;
-  const includeReactDoctorPlugin = template === Template.ReactTypeScript || template === Template.ReactNativeTypeScript;
+  const devDependencies = packageJsonContent?.devDependencies ?? {};
+  const hasOxcToolsInstalled = 'oxlint' in devDependencies && 'oxfmt' in devDependencies;
+  const hasOxcTSGoLintInstalled = 'oxlint-tsgolint' in devDependencies;
+  const missingPlugins = PLUGINS.filter(
+    plugin =>
+      plugin.templates.some(pluginTemplate => pluginTemplate === template) && !(plugin.packageName in devDependencies)
+  );
+  const missingPluginsMessage =
+    missingPlugins.length > 0
+      ? yellow(`(Missing dependencies: ${missingPlugins.map(plugin => `${plugin.name} Oxlint plugin`).join(', ')})`)
+      : '';
 
   const installDeps = await confirm({
-    message: `Do you want to ${hasOxcToolsInstalled ? 'update' : 'install'} OXC dependencies? ${includeReactDoctorPlugin && !hasOxcReactDoctorPluginInstalled ? yellow('(Missing dependency: React Doctor Oxlint plugin)') : ''}`,
+    message: `Do you want to ${hasOxcToolsInstalled ? 'update' : 'install'} OXC dependencies? ${missingPluginsMessage}`,
     vertical: true,
   });
 
@@ -130,11 +155,7 @@ async function main() {
       includeTypeAwareLinting = typeAware;
     }
 
-    await installDependencies(
-      pm,
-      buildOxcDependencies(includeReactDoctorPlugin, includeTypeAwareLinting),
-      hasOxcToolsInstalled
-    );
+    await installDependencies(pm, buildOxcDependencies(template, includeTypeAwareLinting), hasOxcToolsInstalled);
   }
 
   await fetchConfigsFromRepo(template, '.oxfmtrc.json');
@@ -145,12 +166,14 @@ async function main() {
   outro(green('All done!'));
 }
 
-function buildOxcDependencies(includeReactDoctorPlugin: boolean, includeTypeAwareLinting: boolean): string[] {
+function buildOxcDependencies(template: Template, includeTypeAwareLinting: boolean): string[] {
   return [
     'oxlint',
     'oxfmt',
     ...(includeTypeAwareLinting ? ['oxlint-tsgolint'] : []),
-    ...(includeReactDoctorPlugin ? ['oxlint-plugin-react-doctor'] : []),
+    ...PLUGINS.filter(plugin => plugin.templates.some(pluginTemplate => pluginTemplate === template)).map(
+      plugin => plugin.packageName
+    ),
   ];
 }
 
