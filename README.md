@@ -23,6 +23,11 @@ bunx oxc-configs TEMPLATE # download files from specific template for the projec
 - TypeScript (`typescript`)
 - JavaScript (`javascript`)
 
+### Included plugins
+
+- [`oxlint-plugin-golden`](https://github.com/dogalyir/oxlint-plugin-golden) - `typescript`, `react-typescript` and `react-native-typescript` templates
+- [`oxlint-plugin-react-doctor`](https://github.com/millionco/react-doctor/tree/main/packages/oxlint-plugin-react-doctor) - `react-typescript` and `react-native-typescript` templates
+
 ## Development
 
 ```sh
