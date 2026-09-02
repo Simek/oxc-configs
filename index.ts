@@ -44,6 +44,14 @@ async function main() {
 
   intro(bold(blueBright(`oxc-configs`)) + ' ' + gray('•') + ' ' + blue(`OXC toolset pre-made/opinionated configs`));
 
+  const packageJson = Bun.file('./package.json');
+  const packageJsonExist = await packageJson.exists();
+
+  if (!packageJsonExist) {
+    cancel('There is no package.json file in the current directory. Run the CLI inside an existing project.');
+    process.exit(0);
+  }
+
   if (!template) {
     const selectedTemplate = await select<Template>({
       message: 'Select an OXC toolset configs template to download:',
@@ -81,9 +89,7 @@ async function main() {
     process.exit(1);
   }
 
-  const packageJson = Bun.file('./package.json');
-  const packageJsonExist = await packageJson.exists();
-  const packageJsonContent = packageJsonExist ? await packageJson.json() : null;
+  const packageJsonContent = await packageJson.json();
   const devDependencies = packageJsonContent?.devDependencies ?? {};
   const hasOxcToolsInstalled = 'oxlint' in devDependencies && 'oxfmt' in devDependencies;
   const hasOxcTSGoLintInstalled = 'oxlint-tsgolint' in devDependencies;
