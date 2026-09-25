@@ -21,6 +21,7 @@
     "no-constant-condition": ["error", { "checkLoops": false }],
     "no-duplicate-imports": "error",
     "no-implicit-coercion": ["error", { "boolean": false }],
+    "no-unreachable-loop": "error",
     "no-unused-expressions": [
       "error",
       {
@@ -51,6 +52,7 @@
       }
     ],
     "object-shorthand": "error",
+    "one-var": ["error", "never"],
     "prefer-const": "error",
     "prefer-promise-reject-errors": "error",
     "prefer-rest-params": "error",

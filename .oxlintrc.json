@@ -8,6 +8,7 @@
     "curly": "error",
     "eqeqeq": ["error", "always", { "null": "ignore" }],
     "func-style": ["error", "declaration"],
+    "no-unreachable-loop": "error",
     "no-unused-expressions": ["error", { "allowShortCircuit": true, "enforceForJSX": true }],
     "no-unused-vars": [
       "error",
@@ -24,6 +25,7 @@
     "no-useless-constructor": "error",
     "no-useless-return": "error",
     "no-void": ["error", { "allowAsStatement": true }],
+    "one-var": ["error", "never"],
     "prefer-promise-reject-errors": "error",
     "prefer-rest-params": "error",
     "prefer-spread": "error",
