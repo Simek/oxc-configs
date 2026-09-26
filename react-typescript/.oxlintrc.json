@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["import", "jsx-a11y", "nextjs", "promise", "react", "typescript", "unicorn"],
+  "plugins": ["import", "jsx-a11y", "nextjs", "promise", "react"],
   "jsPlugins": [
     { "name": "golden", "specifier": "oxlint-plugin-golden" },
     { "name": "react-doctor", "specifier": "oxlint-plugin-react-doctor" }
@@ -125,6 +125,19 @@
     "nextjs/no-title-in-document-head": "error",
     "nextjs/no-typos": "error",
     "nextjs/no-unwanted-polyfillio": "error",
+    "oxc/approx-constant": "error",
+    "oxc/bad-bitwise-operator": "error",
+    "oxc/bad-char-at-comparison": "error",
+    "oxc/bad-comparison-sequence": "error",
+    "oxc/bad-min-max-func": "error",
+    "oxc/bad-object-literal-comparison": "error",
+    "oxc/bad-replace-all-arg": "error",
+    "oxc/const-comparisons": "error",
+    "oxc/double-comparisons": "error",
+    "oxc/misrefactored-assign-op": "error",
+    "oxc/missing-throw": "error",
+    "oxc/number-arg-out-of-range": "error",
+    "oxc/uninvoked-array-callback": "error",
     "promise/always-return": "error",
     "promise/no-callback-in-promise": "error",
     "promise/no-multiple-resolved": "error",
