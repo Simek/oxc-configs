@@ -25,6 +25,10 @@ type PluginEntry = {
   templates: Template[];
 };
 
+type Config = {
+  ignorePatterns?: string[];
+};
+
 const PLUGINS = [
   {
     name: 'React Doctor',
@@ -185,6 +189,7 @@ function buildOxcDependencies(template: Template, includeTypeAwareLinting: boole
 
 async function fetchConfigsFromRepo(template: Template, fileName: string) {
   let replaceFile: boolean | symbol = true;
+  let existingConfig: Config | undefined;
 
   if (await Bun.file(fileName).exists()) {
     replaceFile = await confirm({
@@ -195,6 +200,10 @@ async function fetchConfigsFromRepo(template: Template, fileName: string) {
     if (isCancel(replaceFile)) {
       cancel('Config file replacement has been cancelled.');
       process.exit(0);
+    }
+
+    if (replaceFile) {
+      existingConfig = (await Bun.file(fileName).json()) as Config;
     }
   }
 
@@ -209,6 +218,10 @@ async function fetchConfigsFromRepo(template: Template, fileName: string) {
     );
 
     const config = await configContent.json();
+    if (existingConfig && Object.hasOwn(existingConfig, 'ignorePatterns')) {
+      config.ignorePatterns = existingConfig.ignorePatterns;
+    }
+
     await Bun.write(fileName, JSON.stringify(config));
 
     progress.stop(`${bold(fileName)} fetched and written.`);
