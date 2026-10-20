@@ -7,6 +7,9 @@
     { "name": "small-rules", "specifier": "@pobammer-ts/small-rules" }
   ],
   "ignorePatterns": [],
+  "options": {
+    "reportUnusedDisableDirectives": "error"
+  },
   "rules": {
     "branches-sharing-code": "error",
     "curly": "error",

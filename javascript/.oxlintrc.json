@@ -3,6 +3,9 @@
   "plugins": ["import", "promise"],
   "jsPlugins": [{ "name": "small-rules", "specifier": "@pobammer-ts/small-rules" }],
   "ignorePatterns": [],
+  "options": {
+    "reportUnusedDisableDirectives": "error"
+  },
   "rules": {
     "branches-sharing-code": "error",
     "consistent-indexed-object-style": ["error", "record"],
