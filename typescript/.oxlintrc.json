@@ -1,7 +1,10 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "plugins": ["import", "promise"],
-  "jsPlugins": [{ "name": "golden", "specifier": "oxlint-plugin-golden" }],
+  "jsPlugins": [
+    { "name": "golden", "specifier": "oxlint-plugin-golden" },
+    { "name": "small-rules", "specifier": "@pobammer-ts/small-rules" }
+  ],
   "ignorePatterns": [],
   "rules": {
     "branches-sharing-code": "error",
@@ -97,6 +100,19 @@
     "promise/no-callback-in-promise": "error",
     "promise/no-multiple-resolved": "error",
     "promise/no-return-wrap": "error",
+    "small-rules/no-dead-store": "error",
+    "small-rules/no-object-parameters": "error",
+    "small-rules/no-reduce-accumulator-copy": "error",
+    "small-rules/no-unknown-returns": "error",
+    "small-rules/no-unknown-parameters": "error",
+    "small-rules/no-unsafe-dictionary-type": "error",
+    "small-rules/prefer-early-return": [
+      "error",
+      {
+        "maximumStatements": 1
+      }
+    ],
+    "small-rules/prefer-optional-parameter": "error",
     "typescript/await-thenable": "error",
     "typescript/ban-ts-comment": [
       "error",

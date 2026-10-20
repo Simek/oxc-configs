@@ -1,22 +1,42 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "plugins": ["import", "promise"],
-  "jsPlugins": [{ "name": "golden", "specifier": "oxlint-plugin-golden" }],
+  "jsPlugins": [
+    { "name": "golden", "specifier": "oxlint-plugin-golden" },
+    { "name": "small-rules", "specifier": "@pobammer-ts/small-rules" }
+  ],
   "ignorePatterns": [],
   "rules": {
     "branches-sharing-code": "error",
     "curly": "error",
     "default-param-last": "error",
-    "eqeqeq": ["error", "always", { "null": "ignore" }],
+    "eqeqeq": [
+      "error",
+      "always",
+      {
+        "null": "ignore"
+      }
+    ],
     "func-style": ["error", "declaration"],
     "no-constant-condition": ["error", { "checkLoops": false }],
     "no-duplicate-imports": "error",
     "no-implicit-coercion": ["error", { "boolean": false }],
     "no-unreachable-loop": "error",
-    "no-unused-expressions": ["error", { "allowShortCircuit": true, "enforceForJSX": true }],
+    "no-unused-expressions": [
+      "error",
+      {
+        "allowShortCircuit": true,
+        "enforceForJSX": true
+      }
+    ],
     "no-unused-vars": [
       "error",
-      { "vars": "all", "ignoreRestSiblings": true, "caughtErrors": "all", "caughtErrorsIgnorePattern": "^_" }
+      {
+        "vars": "all",
+        "ignoreRestSiblings": true,
+        "caughtErrors": "all",
+        "caughtErrorsIgnorePattern": "^_"
+      }
     ],
     "no-useless-call": "error",
     "no-useless-computed-key": "error",
@@ -25,14 +45,26 @@
     "no-useless-return": "error",
     "no-useless-spread": "error",
     "no-var": "error",
-    "no-void": ["error", { "allowAsStatement": true }],
+    "no-void": [
+      "error",
+      {
+        "allowAsStatement": true
+      }
+    ],
     "object-shorthand": "error",
     "one-var": ["error", "never"],
     "prefer-const": "error",
     "prefer-promise-reject-errors": "error",
     "prefer-rest-params": "error",
     "prefer-spread": "error",
-    "sort-imports": ["error", { "allowSeparatedGroups": true, "ignoreDeclarationSort": true, "ignoreCase": true }],
+    "sort-imports": [
+      "error",
+      {
+        "allowSeparatedGroups": true,
+        "ignoreDeclarationSort": true,
+        "ignoreCase": true
+      }
+    ],
     "golden/no-chained-type-assertions": "error",
     "golden/no-empty-object-types": "error",
     "golden/no-known-value-widening": "error",
@@ -68,6 +100,19 @@
     "promise/no-callback-in-promise": "error",
     "promise/no-multiple-resolved": "error",
     "promise/no-return-wrap": "error",
+    "small-rules/no-dead-store": "error",
+    "small-rules/no-object-parameters": "error",
+    "small-rules/no-reduce-accumulator-copy": "error",
+    "small-rules/no-unknown-returns": "error",
+    "small-rules/no-unknown-parameters": "error",
+    "small-rules/no-unsafe-dictionary-type": "error",
+    "small-rules/prefer-early-return": [
+      "error",
+      {
+        "maximumStatements": 1
+      }
+    ],
+    "small-rules/prefer-optional-parameter": "error",
     "typescript/await-thenable": "error",
     "typescript/ban-ts-comment": [
       "error",
@@ -81,10 +126,20 @@
     ],
     "typescript/consistent-indexed-object-style": ["error", "record"],
     "typescript/consistent-type-assertions": "error",
-    "typescript/consistent-type-imports": ["error", { "fixStyle": "inline-type-imports" }],
+    "typescript/consistent-type-imports": [
+      "error",
+      {
+        "fixStyle": "inline-type-imports"
+      }
+    ],
     "typescript/no-array-delete": "error",
     "typescript/no-confusing-non-null-assertion": "error",
-    "typescript/no-confusing-void-expression": ["error", { "ignoreArrowShorthand": true }],
+    "typescript/no-confusing-void-expression": [
+      "error",
+      {
+        "ignoreArrowShorthand": true
+      }
+    ],
     "typescript/no-duplicate-type-constituents": "error",
     "typescript/no-empty-interface": "error",
     "typescript/no-empty-object-type": "error",
@@ -93,7 +148,12 @@
     "typescript/no-for-in-array": "error",
     "typescript/no-inferrable-types": "error",
     "typescript/no-meaningless-void-operator": "error",
-    "typescript/no-misused-promises": ["error", { "checksVoidReturn": false }],
+    "typescript/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": false
+      }
+    ],
     "typescript/no-restricted-types": "error",
     "typescript/no-unnecessary-boolean-literal-compare": "error",
     "typescript/no-unnecessary-parameter-property-assignment": "error",

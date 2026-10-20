@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "plugins": ["import", "promise"],
+  "jsPlugins": [{ "name": "small-rules", "specifier": "@pobammer-ts/small-rules" }],
   "ignorePatterns": [],
   "rules": {
     "branches-sharing-code": "error",
@@ -92,6 +93,14 @@
     "promise/no-callback-in-promise": "error",
     "promise/no-multiple-resolved": "error",
     "promise/no-return-wrap": "error",
+    "small-rules/no-dead-store": "error",
+    "small-rules/no-reduce-accumulator-copy": "error",
+    "small-rules/prefer-early-return": [
+      "off",
+      {
+        "maximumStatements": 1
+      }
+    ],
     "unicorn/consistent-date-clone": "error",
     "unicorn/consistent-empty-array-spread": "error",
     "unicorn/consistent-existence-index-check": "error",

@@ -3,7 +3,8 @@
   "plugins": ["import", "jsx-a11y", "nextjs", "promise", "react"],
   "jsPlugins": [
     { "name": "golden", "specifier": "oxlint-plugin-golden" },
-    { "name": "react-doctor", "specifier": "oxlint-plugin-react-doctor" }
+    { "name": "react-doctor", "specifier": "oxlint-plugin-react-doctor" },
+    { "name": "small-rules", "specifier": "@pobammer-ts/small-rules" }
   ],
   "ignorePatterns": [],
   "rules": {
@@ -438,6 +439,20 @@
     "react-doctor/url-prefilled-privileged-action": "error",
     "react-doctor/use-lazy-motion": "error",
     "react-doctor/void-dom-elements-no-children": "error",
+    "small-rules/ban-react-fc": "error",
+    "small-rules/no-dead-store": "error",
+    "small-rules/no-object-parameters": "error",
+    "small-rules/no-reduce-accumulator-copy": "error",
+    "small-rules/no-unknown-returns": "error",
+    "small-rules/no-unknown-parameters": "error",
+    "small-rules/no-unsafe-dictionary-type": "error",
+    "small-rules/prefer-early-return": [
+      "error",
+      {
+        "maximumStatements": 1
+      }
+    ],
+    "small-rules/prefer-optional-parameter": "error",
     "typescript/await-thenable": "error",
     "typescript/ban-ts-comment": [
       "error",

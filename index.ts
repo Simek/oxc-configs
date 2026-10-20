@@ -40,6 +40,11 @@ const PLUGINS = [
     packageName: 'oxlint-plugin-golden',
     templates: [Template.ReactTypeScript, Template.ReactNativeTypeScript, Template.TypeScript],
   },
+  {
+    name: 'Small Rules',
+    packageName: '@pobammer-ts/small-rules',
+    templates: [Template.ReactTypeScript, Template.ReactNativeTypeScript, Template.TypeScript, Template.JavaScript],
+  },
 ] satisfies PluginEntry[];
 
 async function main() {
