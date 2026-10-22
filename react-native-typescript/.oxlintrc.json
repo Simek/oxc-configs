@@ -444,11 +444,7 @@
     "react-doctor/void-dom-elements-no-children": "error",
     "small-rules/ban-react-fc": "error",
     "small-rules/no-dead-store": "error",
-    "small-rules/no-object-parameters": "error",
     "small-rules/no-reduce-accumulator-copy": "error",
-    "small-rules/no-unknown-returns": "error",
-    "small-rules/no-unknown-parameters": "error",
-    "small-rules/no-unsafe-dictionary-type": "error",
     "small-rules/prefer-early-return": [
       "error",
       {

@@ -27,6 +27,7 @@ bunx oxc-configs TEMPLATE # download files from specific template for the projec
 
 - [`oxlint-plugin-golden`](https://github.com/dogalyir/oxlint-plugin-golden) - `typescript`, `react-typescript` and `react-native-typescript` templates
 - [`oxlint-plugin-react-doctor`](https://github.com/millionco/react-doctor/tree/main/packages/oxlint-plugin-react-doctor) - `react-typescript` and `react-native-typescript` templates
+- [`@pobammer-ts/small-rules`](https://github.com/howmanysmall/small-rules) - `javascript`, `typescript`, `react-typescript` and `react-native-typescript` templates
 
 ## Development
 
