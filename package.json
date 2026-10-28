@@ -25,12 +25,12 @@
     "picocolors": "^1.1.1"
   },
   "devDependencies": {
-    "@pobammer-ts/small-rules": "^3.7.0",
-    "@types/bun": "^1.4.3",
-    "oxfmt": "^0.74.0",
-    "oxlint": "^1.89.0",
+    "@pobammer-ts/small-rules": "^3.9.0",
+    "@types/bun": "^1.4.4",
+    "oxfmt": "^0.75.0",
+    "oxlint": "^1.90.0",
     "oxlint-plugin-golden": "^0.1.2",
-    "oxlint-tsgolint": "^7.0.2004",
+    "oxlint-tsgolint": "^7.0.2005",
     "typescript": "^7.0.2"
   },
   "engines": {
