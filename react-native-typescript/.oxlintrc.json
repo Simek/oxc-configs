@@ -8,7 +8,8 @@
   ],
   "ignorePatterns": [],
   "options": {
-    "reportUnusedDisableDirectives": "error"
+    "reportUnusedDisableDirectives": "error",
+    "typeAware": true
   },
   "rules": {
     "branches-sharing-code": "error",
