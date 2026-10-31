@@ -9,7 +9,7 @@
         "picocolors": "^1.1.1",
       },
       "devDependencies": {
-        "@pobammer-ts/small-rules": "^3.9.0",
+        "@pobammer-ts/small-rules": "^3.10.0",
         "@types/bun": "^1.4.4",
         "oxfmt": "^0.75.0",
         "oxlint": "^1.90.0",
@@ -164,7 +164,7 @@
 
     "@oxlint/plugins": ["@oxlint/plugins@1.89.0", "", {}, "sha512-TJBBNl4KIxbxrSk7gsqlz6iM1kxidfyTizEzfWqXvijF2Ou8/Da58GvjemBVmCmaUamwRij+JwsVc0kpBFuqfg=="],
 
-    "@pobammer-ts/small-rules": ["@pobammer-ts/small-rules@3.9.0", "", { "dependencies": { "arktype": "2.2.9", "effect": "4.0.1", "ignore": "7.0.13", "minimatch": "10.2.6", "oxc-resolver": "11.24.2", "oxlint-plugin-utilities": "1.1.0", "yuku-parser": "0.19.0" }, "peerDependencies": { "typescript": ">=5 <8" } }, "sha512-djp2mZaMqjwya+5eeiqSmtRVLlX53HRYIvnC/QZa+ekwPgi3Jj0bjDBdvcxGIejuRmb2DtisYwn0Hz3UvP6MIQ=="],
+    "@pobammer-ts/small-rules": ["@pobammer-ts/small-rules@3.10.0", "", { "dependencies": { "arktype": "2.2.9", "effect": "4.0.1", "ignore": "7.0.13", "minimatch": "10.2.6", "oxc-resolver": "11.24.2", "oxlint-plugin-utilities": "1.1.0", "yuku-parser": "0.19.0" }, "peerDependencies": { "typescript": ">=5 <8" } }, "sha512-rvFN212UwmOpRYSaF8L7W+GMB6DGdehBO0M6WYW0cPD1tfcWtiH7lefbI/kTp2bGaUvRwglfzgP/KGALjOd1ZA=="],
 
     "@tybys/wasm-util": ["@tybys/wasm-util@0.10.4", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-W3c4gRigFS0T/Ma4qIYF3GDAc5AQdHb1yL5znJT1Zv1YaD9Kitx656wBjvr19qbiosmZT8lWDM5BEMynUqX65A=="],
 
